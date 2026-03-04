@@ -1,0 +1,23 @@
+# LoRA
+lora_r: 8
+lora_dropout: 0.0
+target_modules:
+  - down_proj
+
+use_kl_loss: true
+
+ctx_encoder_type: per_layer_activations
+n_latent_queries: 8
+num_blocks: 9
+num_self_attn_per_block: 0
+
+gradient_accumulation_steps: 11
+max_packed_inp_len: 6144
+max_packed_ctx_len: 6144
+
+# data
+train_ds_names:
+  - codeqa_compact
+
+val_ds_names:
+  - codeqa

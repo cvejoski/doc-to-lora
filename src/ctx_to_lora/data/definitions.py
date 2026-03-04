@@ -36,6 +36,17 @@ LONGBENCH_E_TASKS = [
 ]
 
 DS_KWARGS = {
+    "codeqa": dict(
+        validation=dict(path="vm2825/CodeQA-dataset", split="train[:1000]"),
+        test=dict(path="vm2825/CodeQA-dataset", split="train[1000:3000]"),
+    ),
+    "codeqa_compact": dict(
+        train=dict(
+            path="parquet",
+            data_files="data/raw_datasets/codeqa_compact/train/ds.parquet",
+            split="train",
+        ),
+    ),
     "pwc": dict(
         train=dict(path="sggetao/PwC", split="train"),
         validation=dict(path="sggetao/PwC", split="test[:900]"),
@@ -168,6 +179,7 @@ for ds_name in LONGBENCH_TASKS + LONGBENCH_E_TASKS:
 
 
 CLOSED_QA_DATASETS = {
+    "codeqa",
     "longbench/qasper",
     "longbench/multifieldqa_en",
     "longbench/2wikimqa",
@@ -231,6 +243,8 @@ CLOSED_QA_INTX_TEMPLATES = [
 
 
 EVAL_INTX_TEMPLATES = {
+    # code qa given code context
+    "codeqa": "Answer the following questio. Output only the answer and do not output any other words or code.\n\nQuestion: {input}",
     # binary (yes/no, a/b) qa given ctx
     "ropes": "Answer the following question. Output only the answer and do not output any other words.\n\nQuestion: {input}",
     # short-ctx reasoning

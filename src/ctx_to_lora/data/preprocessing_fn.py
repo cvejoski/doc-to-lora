@@ -43,7 +43,16 @@ def get_preprocessing_fn(
         # already processed data, do nothing
         return f
 
-    if "fw_qa_v2" in ds_name:
+    if ds_name == "codeqa":
+
+        def f(sample):
+            return {
+                "context": sample["input_code"],
+                "prompt": sample["Instruction"].strip(),
+                "response": sample["output_code"].strip(),
+            }
+
+    elif "fw_qa_v2" in ds_name:
 
         def f(sample):
             # get questions/answers from all levels in the ds

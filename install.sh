@@ -1,4 +1,4 @@
-curl -LsSf https://astral.sh/uv/install.sh | sh
+#curl -LsSf https://astral.sh/uv/install.sh | sh
 uv self update
 uv venv --python 3.10 --seed
 uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --torch-backend=cu124
