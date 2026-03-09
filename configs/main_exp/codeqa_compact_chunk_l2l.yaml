@@ -17,7 +17,7 @@ max_packed_ctx_len: 6144
 
 # data
 train_ds_names:
-  - codeqa_compact
+  - self_gen/google/gemma-2-2b-it/codeqa_compact
 
 val_ds_names:
   - codeqa
