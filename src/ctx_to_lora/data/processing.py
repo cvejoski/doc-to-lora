@@ -401,7 +401,7 @@ def construct_and_tokenize_ctx_qa(
     # for sft + chat_model, we need to convert the dataset to chat format
     if "input_ids" in ds.column_names and "response_start_end" in ds.column_names:
         # already tokenized dataset (e.g., self-gen qa data)
-        tokenized_ds = ds.map(get_labels_from_input_ids, num_proc=16)
+        tokenized_ds = ds.map(get_labels_from_input_ids, num_proc=16, load_from_cache_file=False)
     else:
         # construct messages from prompts and responses
         # add "messages_list" field
@@ -555,7 +555,7 @@ def get_labels_from_input_ids(sample: dict[str, Any]) -> dict[str, Any]:
         pad_len_right = len_input_ids - end_i
         labels.append(
             [IGNORE_INDEX] * pad_len_left
-            + input_ids_i[start_i:]
+            + input_ids_i[start_i:end_i]
             + [IGNORE_INDEX] * pad_len_right
         )
 
@@ -721,6 +721,9 @@ def split_too_long_ctx(
         )
         # Remove options that would yield chunk length > max_chunk_len
         filt = {k: v for k, v in filt.items() if k >= min_required}
+        if not filt:
+            # Context exceeds max_chunk_len * max_chunks; use the largest available count
+            filt = {max(num_chunk_probs.keys()): 1.0}
         n_chunks = choices(list(filt.keys()), weights=list(filt.values()), k=1)[0]
 
     # Derive n_chunks if not sampled (e.g., eval or fallback)

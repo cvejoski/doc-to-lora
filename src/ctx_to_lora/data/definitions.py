@@ -244,7 +244,7 @@ CLOSED_QA_INTX_TEMPLATES = [
 
 EVAL_INTX_TEMPLATES = {
     # code qa given code context
-    "codeqa": "Answer the following questio. Output only the answer and do not output any other words or code.\n\nQuestion: {input}",
+    "codeqa": "Answer the following question. Output only the answer and do not output any other words.\n\nQuestion: {input}",
     # binary (yes/no, a/b) qa given ctx
     "ropes": "Answer the following question. Output only the answer and do not output any other words.\n\nQuestion: {input}",
     # short-ctx reasoning

@@ -3,7 +3,7 @@
 port=29051
 
 uv run accelerate launch --config_file accelerate_config.yaml --main_process_port $port \
---num_processes=8 --gpu_ids all train.py \
+--num_processes=1 --gpu_ids all train.py \
 configs/main_exp/self_gen_lv1_closed_qa_1_l2l.yaml \
 --model_name_or_path=google/gemma-2-2b-it \
 --target_modules=down_proj --lora_r=8 \
